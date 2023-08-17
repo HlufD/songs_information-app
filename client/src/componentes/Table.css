@@ -1,0 +1,25 @@
+table, th, td {
+    text-align: center;
+   
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 5px;
+  }
+  td,th{
+    padding: 15px;
+    color: #121F43;
+    font-size: 12px;
+    font-family: 400;
+
+  }
+  th{
+    background-color: #e7e8ee;
+  }
+
+  tr:nth-child(2n){
+  background-color:#eff1ff ;
+  }
