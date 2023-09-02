@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { InitialState, Song, response } from "../../types/SongType";
 import { toast } from "react-toastify";
@@ -30,7 +32,7 @@ const songSlice = createSlice({
       state.songsData = action.payload;
       state.isLoading = false;
     },
-    // end of Fetch
+    
     addSongRequest: (state, action: PayloadAction<Song>) => {
       state.isLoading = true;
     },
@@ -43,8 +45,8 @@ const songSlice = createSlice({
       }
       state.isLoading = false;
     },
-    // end of add
-    updatesongRequest: (state, action: PayloadAction<{}>) => {
+   
+    updatesongRequest: (state, action: PayloadAction<object>) => {
       state.isLoading = true;
     },
     updateSongSuccess: (state, action) => {
@@ -57,9 +59,9 @@ const songSlice = createSlice({
       toast.error(state.msg);
       state.isLoading = false;
     },
-    // end of update
+   
 
-    deleteSongRequest: (state, action: PayloadAction<String>) => {
+    deleteSongRequest: (state, action: PayloadAction<string>) => {
       state.isLoading = true;
     },
     deleteSongSuccess: (state, action) => {
@@ -70,7 +72,7 @@ const songSlice = createSlice({
       );
       state.isLoading = false;
     },
-    // end og deleteting
+   
 
     getStatsFetched: (state) => {
       state.isLoading = true;
@@ -79,7 +81,7 @@ const songSlice = createSlice({
       state.isLoading = false;
       state.statsics = action.payload;
     },
-    // end of delete
+   
   },
 });
 true;

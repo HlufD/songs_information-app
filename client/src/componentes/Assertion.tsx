@@ -23,10 +23,10 @@ function Assertion({ songId }: { songId: string }) {
     <div css={wrapper}>
       <p>Do you want to delete this song ?</p>
       <div css={buttonWraper}>
-        <button css={deletebuttons} onClick={onDeleteHandler}>
+        <button css={deletebuttonStyle} onClick={onDeleteHandler}>
           Delete
         </button>
-        <button css={buttons} onClick={onCancelHandler}>
+        <button css={buttonStyle} onClick={onCancelHandler}>
           Cancle
         </button>
       </div>
@@ -57,7 +57,7 @@ const buttonWraper = css`
   display: flex;
   justify-content: center;
 `;
-const buttons = css`
+const buttonStyle = css`
   padding: 8px 25px;
   font-size: 13px;
   border: none;
@@ -65,15 +65,11 @@ const buttons = css`
   outline: none;
 `;
 
-const deletebuttons = css`
-  padding: 8px 25px;
-  font-size: 13px;
+const deletebuttonStyle = css`
+  ${buttonStyle}
   background-color: #f13f3f;
   color: white;
   margin-right: 30px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
   &:hover {
     background-color: #e61212;
   }

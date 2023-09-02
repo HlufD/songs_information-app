@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { css } from "@emotion/react";
 import React from "react";
 import { Song } from "../types/SongType";
@@ -10,6 +11,7 @@ interface InputProps {
   song: Song;
   setSong: Function;
 }
+
 function Input({ type, placeholder, value, name, song, setSong }: InputProps) {
   const onChageHander = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSong = Object.assign({}, song, {

@@ -7,11 +7,26 @@ services:
     build: .
     ports:
       - '3000:3000'
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - MNGO_URI=mongodb://root:root123@mongo:27017/?authSource=admin
     links: 
     - mongo
   
   mongo:
     container_name: mongo
     image: mongo:4.4.6
+    volumes:
+      - mongo-db:/data/db
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root123
+
+volumes:
+  mongo-db:

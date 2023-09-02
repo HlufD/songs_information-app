@@ -39,6 +39,7 @@ export interface InitialState {
   isLoading: boolean;
   msg: string;
   statsics: StasticsType;
+  
 }
 
 export interface response {

@@ -10,15 +10,17 @@ import { getSongsFetch } from "../redux/features/songSlice";
 import TabelRow from "./TabelRow";
 import { Song } from "../types/SongType";
 import { css } from "@emotion/react";
+import Pagination from "./Pagination";
+import { searchSong } from "./utils/searchSong";
 
-function Table({ searchTerm }: { searchTerm: string }) {
+function Table({ searchterm }: { searchterm: string }) {
   const [song, setSong] = useState({
     title: "",
     artist: "",
     album: "",
     genre: "",
   });
-  let [songId, setSongId] = useState("");
+  const [songId, setSongId] = useState("");
   const isOpen = useSelector((state: RootStateType) => state.modal.isOpen);
   const work = useSelector((state: RootStateType) => state.modal.work);
   const songs = useSelector((state: RootStateType) => state.songs.songsData);
@@ -39,28 +41,25 @@ function Table({ searchTerm }: { searchTerm: string }) {
     dispatch(getSongsFetch());
   }, [dispatch]);
 
-  const filterdSong =
-    searchTerm == ""
-      ? songs
-      : songs.filter((song) => {
-          return (
-            song.album
-              .toLocaleLowerCase()
-              .includes(searchTerm.toLocaleLowerCase()) ||
-            song.artist
-              .toLocaleLowerCase()
-              .includes(searchTerm.toLocaleLowerCase()) ||
-            song.title
-              .toLocaleLowerCase()
-              .includes(searchTerm.toLocaleLowerCase()) ||
-            song.genre
-              .toLocaleLowerCase()
-              .includes(searchTerm.toLocaleLowerCase())
-          );
-        });
+  //pagtination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [songsPerPage, setsongsPerPage] = useState(10);
+  const lastIndexOfLastSong = currentPage * songsPerPage;
+  const firstIndexOfSong = lastIndexOfLastSong - songsPerPage;
 
+  const currontSongs =
+    searchterm != ""
+      ? searchSong(songs, searchterm).slice(
+          firstIndexOfSong,
+          lastIndexOfLastSong
+        )
+      : songs.slice(firstIndexOfSong, lastIndexOfLastSong);
+
+  function paginate(pageNumber: number) {
+    setCurrentPage(pageNumber);
+  }
   return (
-    <>
+    <div css={rootStyle}>
       <table>
         <thead>
           <tr>
@@ -73,9 +72,7 @@ function Table({ searchTerm }: { searchTerm: string }) {
           </tr>
         </thead>
         <tbody>
-          {/* fitst row */}
-
-          {filterdSong.map((song) => {
+          {currontSongs.map((song) => {
             return (
               <TabelRow
                 key={song._id}
@@ -85,10 +82,14 @@ function Table({ searchTerm }: { searchTerm: string }) {
               />
             );
           })}
-
-          {/* end fitst row */}
         </tbody>
       </table>
+      <Pagination
+        tottalNumberOfSongs={songs.length}
+        songsPerpage={songsPerPage}
+        paginate={paginate}
+        setsongsPerPage={setsongsPerPage}
+      />
       {isOpen && work == "updating" && (
         <Modal title="Update Song">
           <UpdateSong intialSong={song} />
@@ -99,12 +100,14 @@ function Table({ searchTerm }: { searchTerm: string }) {
           <Assertion songId={songId} />
         </Modal>
       )}
-    </>
+    </div>
   );
 }
 
 export default Table;
-
+const rootStyle = css`
+  margin-top: 25px;
+`;
 const toBehidden = css`
   @media (max-width: 989px) {
     display: none;

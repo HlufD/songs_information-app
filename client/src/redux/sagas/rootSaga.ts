@@ -26,13 +26,13 @@ function* workrGetFetch() {
 function* getSongSaga() {
   yield takeLatest("songs/getSongsFetch", workrGetFetch);
 }
-//end of fetching
+
 
 function* workAddSong(action: PayloadAction<Song>) {
   const data: response = yield call(() => addSong(action.payload));
   yield put(addSongSuccess(data));
 }
-// end of adding song
+
 
 function* postSongSaaga() {
   yield takeLatest("songs/addSongRequest", workAddSong);
@@ -53,7 +53,7 @@ function* workUpadeSong(action: PayloadAction<{ id: string; song: Song }>) {
 function* updateSongSaga() {
   yield takeLatest("songs/updatesongRequest", workUpadeSong);
 }
-// end of updating
+
 
 function* workDeleteSong(action: PayloadAction<string>) {
   const id = action.payload;
@@ -64,7 +64,7 @@ function* workDeleteSong(action: PayloadAction<string>) {
 function* deleteSongSaga() {
   yield takeLatest("songs/deleteSongRequest", workDeleteSong);
 }
-// end of deleting
+
 
 function* workGenerateStatstics() {
   const data: StasticsType = yield call(getStastics);

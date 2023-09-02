@@ -23,3 +23,12 @@ table, th, td {
   tr:nth-child(2n){
   background-color:#eff1ff ;
   }
+
+
+  @media(max-width: 412px){
+    td,th{
+      padding: 15px 10px;
+      color: #121F43;
+      font-size: 12px;
+    }
+  }

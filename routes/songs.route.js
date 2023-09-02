@@ -14,16 +14,16 @@ router
   .route("/")
   .post(
     [
-      body("title", "title can't be greater than 2 chars")
+      body("title", "Title can't be less than than 2 characters")
         .exists()
         .isLength({ min: 2 }),
-      body("album", "album can't be greater than 2 chars")
+      body("album", "Album can't be less than 2 characters")
         .exists()
         .isLength({ min: 2 }),
-      body("artist", "atrist can't be greater than 2 chars")
+      body("artist", "Atrist can't be less than 2 characters")
         .exists()
         .isLength({ min: 2 }),
-      body("genre", "genre can't be greater than 2 chars")
+      body("genre", "Genre can't be less than 2 characters")
         .exists()
         .isLength({ min: 2 }),
     ],
@@ -35,19 +35,19 @@ router
   .get([param("_id", "_id is not valid Id").isMongoId()], getSingleSong)
   .patch(
     [
-      body("title", "title can't be greater than 2 chars")
+      body("title", "Title can't be  less than 2 characters")
         .optional()
         .exists()
         .isLength({ min: 2 }),
-      body("album", "album can't be greater than 2 chars")
+      body("album", "Album can't be  less than 2 characters")
         .optional()
         .exists()
         .isLength({ min: 2 }),
-      body("artist", "atrist can't be greater than 2 chars")
+      body("artist", "Atrist can't be less than 2 characters")
         .optional()
         .exists()
         .isLength({ min: 2 }),
-      body("genre", "genre can't be greater than 2 chars")
+      body("genre", "Genre can't be less than 2 characters")
         .optional()
         .exists()
         .isLength({ min: 2 }),

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = "http://localhost:3000/";
 import axios from "axios";
 import { Song } from "../types/SongType";

@@ -58,7 +58,7 @@ const rootStyle = css`
     0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   padding: 20px;
   @media (max-width: 989px) {
-    width: 20%;
+    width: 80%;
     padding: 10px 0px;
   }
   h4 {
@@ -104,6 +104,6 @@ const iconsStyle = css`
   font-size: 16px;
   margin-right: 8px;
   @media (max-width: 989px) {
-    font-size: 27px;
+    font-size: 24px;
   }
 `;

@@ -1,2 +1,7 @@
 node_moduless
 client
+Dockerfile
+.env
+.git
+.gitignore
+.dockerignore
