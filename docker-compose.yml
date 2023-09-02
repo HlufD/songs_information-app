@@ -12,7 +12,7 @@ services:
       - /app/node_modules
     environment:
       - PORT=3000
-      - NODE_ENV=development
+      - NODE_ENV=production
       - MNGO_URI=mongodb://root:root123@mongo:27017/?authSource=admin
     links: 
     - mongo
