@@ -11,7 +11,7 @@ import TabelRow from "./TabelRow";
 import { Song } from "../types/SongType";
 import { css } from "@emotion/react";
 import Pagination from "./Pagination";
-import { searchSong } from "./utils/searchSong";
+import { searchSong } from "../utils/searchSong";
 
 function Table({ searchterm }: { searchterm: string }) {
   const [song, setSong] = useState({
