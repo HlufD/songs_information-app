@@ -7,12 +7,7 @@ import Footer from "./Footer";
 function SideBar() {
   return (
     <div css={rootStyle}>
-      <section
-        css={css`
-          height: 90%;
-        `}
-      >
-        {/* start of logo section */}
+      <main>
         <section>
           <div css={logoWrapper}>
             <div>
@@ -21,12 +16,9 @@ function SideBar() {
             <span>Songify </span>
           </div>
         </section>
-        {/* end of logo section */}
-
-        {/* start of navigation section */}
         <section css={sectionWrapper}>
           <h4>Dashboard</h4>
-          <section>
+          <div>
             <Link to="/">
               <div css={navLinkstyle}>
                 <GiMusicalScore css={iconsStyle} />
@@ -39,10 +31,9 @@ function SideBar() {
                 <span>Stastics</span>
               </div>
             </Link>
-          </section>
+          </div>
         </section>
-        {/* end of Navigation section */}
-      </section>
+      </main>
       <Footer />
     </div>
   );
@@ -60,6 +51,9 @@ const rootStyle = css`
   @media (max-width: 989px) {
     width: 80%;
     padding: 10px 0px;
+  }
+  main {
+    height: 90%;
   }
   h4 {
     font-size: 16px;

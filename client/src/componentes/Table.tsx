@@ -1,63 +1,20 @@
 import "./Table.css";
-import { useSelector, useDispatch } from "react-redux";
-import { RootStateType } from "../redux/store";
 import Modal from "./Modal";
 import UpdateSong from "../pages/UpdateSong";
-import { opneModal } from "../redux/features/modalSlice";
 import Assertion from "./Assertion";
-import { useEffect, useState } from "react";
-import { getSongsFetch } from "../redux/features/songSlice";
 import TabelRow from "./TabelRow";
-import { Song } from "../types/SongType";
 import { css } from "@emotion/react";
 import Pagination from "./Pagination";
-import { searchSong } from "../utils/searchSong";
+import { useSongs } from "../utils/useSongs";
+import { usePagiantie } from "../utils/usePaginate";
 
 function Table({ searchterm }: { searchterm: string }) {
-  const [song, setSong] = useState({
-    title: "",
-    artist: "",
-    album: "",
-    genre: "",
-  });
-  const [songId, setSongId] = useState("");
-  const isOpen = useSelector((state: RootStateType) => state.modal.isOpen);
-  const work = useSelector((state: RootStateType) => state.modal.work);
-  const songs = useSelector((state: RootStateType) => state.songs.songsData);
+  const { song, songId, isOpen, work, songs, onDeleteHandler, onEditHandler } =
+    useSongs();
 
-  const dispatch = useDispatch();
-  const onDeleteHandler = (id: string) => {
-    dispatch(opneModal("deleting"));
-    setSongId(id);
-  };
+  const { songsPerPage, setsongsPerPage, paginate, currontSongs } =
+    usePagiantie(songs, searchterm);
 
-  const onEditHandler = (_id: string) => {
-    const intialSong = songs.find((song) => song._id == _id) as Song;
-    setSong(intialSong);
-    dispatch(opneModal("updating"));
-  };
-
-  useEffect(() => {
-    dispatch(getSongsFetch());
-  }, [dispatch]);
-
-  //pagtination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [songsPerPage, setsongsPerPage] = useState(10);
-  const lastIndexOfLastSong = currentPage * songsPerPage;
-  const firstIndexOfSong = lastIndexOfLastSong - songsPerPage;
-
-  const currontSongs =
-    searchterm != ""
-      ? searchSong(songs, searchterm).slice(
-          firstIndexOfSong,
-          lastIndexOfLastSong
-        )
-      : songs.slice(firstIndexOfSong, lastIndexOfLastSong);
-
-  function paginate(pageNumber: number) {
-    setCurrentPage(pageNumber);
-  }
   return (
     <div css={rootStyle}>
       <table>
