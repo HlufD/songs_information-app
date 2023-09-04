@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { css } from "@emotion/react";
 import Input from "../componentes/Input";
 import React, { useState } from "react";
@@ -5,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSongRequest } from "../redux/features/songSlice";
 import { RootStateType } from "../redux/store";
 import { InfinitySpin } from "react-loader-spinner";
+import { toast } from "react-toastify";
+
+import { SongSchema } from "../validations/songValidation";
 
 function AddSong() {
   const initilaState = {
@@ -19,10 +23,15 @@ function AddSong() {
     (state: RootStateType) => state.songs.isLoading
   );
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addSongRequest(song));
-    setSong(initilaState);
+    try {
+      await SongSchema.validate(song);
+      dispatch(addSongRequest(song));
+      setSong(initilaState);
+    } catch (error: any) {
+      toast.error(error.errors[0]);
+    }
   };
 
   return (

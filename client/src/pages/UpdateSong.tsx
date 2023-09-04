@@ -7,6 +7,8 @@ import { updatesongRequest } from "../redux/features/songSlice";
 import { InfinitySpin } from "react-loader-spinner";
 import { RootStateType } from "../redux/store";
 import { formStyle } from "./AddSong";
+import { toast } from "react-toastify";
+import { SongSchema } from "../validations/songValidation";
 
 function UpdateSong({ intialSong }: { intialSong: Song }) {
   const [song, setSong] = useState(intialSong);
@@ -16,9 +18,15 @@ function UpdateSong({ intialSong }: { intialSong: Song }) {
   );
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const id = song._id;
-    dispatch(updatesongRequest({ id, song }));
+    try {
+      e.preventDefault();
+      await SongSchema.validate(song);
+      const id = song._id;
+      dispatch(updatesongRequest({ id, song }));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.errors[0]);
+    }
   };
 
   return (
